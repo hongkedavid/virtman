@@ -24,7 +24,7 @@ do
                  cnt=$(($cnt+1));
              fi
          fi
-         j=$(($J+1));
+         j=$(($j+1));
      done
      b=$cnt;
      if [ $(($a+$b)) -eq 0 ]; then
