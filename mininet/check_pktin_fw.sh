@@ -9,6 +9,7 @@ do
      h=$(printf "%04x\n" $i);
      b=$(cat pktin.out | grep " $h " | grep  "0a00 002a" | wc -l);
      if [ $(($a+$b)) -eq 0 ]; then
+        i=$(($i+1));
         continue;
      fi
      c=$(($a*$b));
