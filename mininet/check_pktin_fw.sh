@@ -11,21 +11,21 @@ do
      j=1;
      cnt=0;
      while [ $j -le $b ]; do
-         t=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o " $h " | cut -d':' -f1);
-         echo $t;
-         t=$(($t+1));
-         if [ $(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o "0a00 002a" | wc -l) -gt 0 ]; then
-             t1=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o "0a00 002a" | cut -d':' -f1);
-             if [ $(($t-$t1)) -eq 15 ]; then
-                 cnt=$(($cnt+1));
-             fi
+         s=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1);
+         if [ $(echo $s | grep -b -o "0a00 002a" | wc -l) -gt 0 ]; then
+             t1=$(echo $s | grep -b -o "0a00 002a" | cut -d':' -f1);
+             s=$(echo $s | sed "s/0a00 002a/xxxx xxxx/1");
+             while [ $(echo $s | grep " $h " | wc -l) -gt 0 ]; do
+                    t=$(echo $s | grep -b -o " $h " | cut -d':' -f1);
+                    t=$(($t+1));
+                    if [ $(($t-$t1)) -eq 15 ]; then
+                        cnt=$(($cnt+1));
+                    fi
+                    s=$(echo $s | sed "s/$h/xxxx/1");
+             done
          fi
-         if [ $(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o " 05b0 " | wc -l) -gt 0 ]; then
-             t2=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o " 05b0 " | cut -d':' -f1);
-             t2=$(($t2+1));
-             if [ $(($t2-$t)) -eq 5 ]; then
-                 cnt=$(($cnt+1));
-             fi
+         if [ $(echo $s | grep " $h 05b0 " | wc -l) -gt 0 ]; then
+             cnt=$(($cnt+1));
          fi
          j=$(($j+1));
      done
