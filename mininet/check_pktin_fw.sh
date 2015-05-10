@@ -11,7 +11,9 @@ do
      j=1;
      cnt=0;
      while [ $j -le $b ]; do
-         t=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o "$h" | cut -d':' -f1);
+         t=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o " $h " | cut -d':' -f1);
+         echo $t;
+         t=$(($t+1));
          if [ $(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o "0a00 002a" | wc -l) -gt 0 ]; then
              t1=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o "0a00 002a" | cut -d':' -f1);
              if [ $(($t-$t1)) -eq 15 ]; then
@@ -19,7 +21,8 @@ do
              fi
          fi
          if [ $(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o " 05b0 " | wc -l) -gt 0 ]; then
-             t2=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o "05b0 " | cut -d':' -f1);
+             t2=$(cat tmp | grep " $h " | grep  "0a00 002a\| 05b0 " | head -n$j | tail -n1 | grep -b -o " 05b0 " | cut -d':' -f1);
+             t2=$(($t2+1));
              if [ $(($t2-$t)) -eq 5 ]; then
                  cnt=$(($cnt+1));
              fi
