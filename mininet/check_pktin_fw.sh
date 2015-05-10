@@ -1,6 +1,6 @@
 # tcpdump-file count-flow-entry-output
 # filter openflow version, pkt-src-ip, pkt-dst-ip
-tcpdump -nnvvXSs 1514 'dst 141.212.108.10 and dst port 6653 and tcp[20:2] = 0x010a and tcp[64:4] = 0x0a000029 and tcp[68:4] = 0x0a00002a' -r $1 > pktin.out;
+tcpdump -nnvvXSs 1514 'dst 141.212.108.10 and dst port 6653' -r $1 > pktin.out;
 # verify pkt-in message sent at switch
 i=1000;
 while [ $i -le 10000 ];
