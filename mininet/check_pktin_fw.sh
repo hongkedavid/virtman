@@ -7,7 +7,7 @@ while [ $i -le 10000 ];
 do
      a=$(cat $2 | grep "tp_dst=$i" | wc -l);
      h=$(printf "%04x\n" $i);
-     b=$(cat $1 | grep " $h " | grep  "0a00 002a\| 05b0 " | wc -l);
+     b=$(cat pktin.out | grep " $h " | grep  "0a00 002a\| 05b0 " | wc -l);
      j=1;
      cnt=0;
      while [ $j -le $b ]; do
